@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DetailPage extends StatelessWidget {
   final String day;
 
-  DetailPage({required this.day});
+  const DetailPage({super.key, required this.day});
 
   void showPopup(BuildContext context) {
     showDialog(
@@ -68,7 +68,6 @@ class DetailPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => showPopup(context),
-                child: Text("Add to card"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[300],
                   foregroundColor: Colors.black,
@@ -77,6 +76,7 @@ class DetailPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                child: Text("Add to card"),
               ),
             ),
           ],

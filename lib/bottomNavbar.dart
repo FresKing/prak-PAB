@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'HomePage.dart';
-import 'videoPage.dart';
+import 'musicPage.dart';
+import 'ProfilPage.dart';
 
 class BottomNavbar extends StatefulWidget {
-  const BottomNavbar({Key? key}) : super(key: key);
+  const BottomNavbar({super.key});
 
   @override
   _BottomNavbarState createState() => _BottomNavbarState();
@@ -15,6 +16,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   static final List<Widget> _pages = <Widget>[
     HomePage(),
     MusicVideoScreen(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,13 +32,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF519BF5), // add this line
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.library_music),
+            label: 'Music',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_library),
-            label: 'Video',
+            icon: Icon(Icons.account_circle),
+            label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -46,4 +49,3 @@ class _BottomNavbarState extends State<BottomNavbar> {
     );
   }
 }
-

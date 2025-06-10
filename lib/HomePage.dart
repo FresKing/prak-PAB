@@ -3,20 +3,33 @@ import 'package:flutter/material.dart';
 import 'halamanDetail.dart';
 
 class HomePage extends StatelessWidget {
-  final List<String> days = ['Day 1', 'Day 2', 'Day 3', 'Day 4'];
+  final List<String> days = [
+    'Day 1',
+    'Day 2',
+    'Day 3',
+    'Day 4',
+    'Day 5',
+    'Day 6',
+    'Day 7',
+    'Day 8',
+    'Day 9',
+    'Day 10',
+  ];
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppBar(title: Text("JKT48 Tour")),
+        SizedBox(height: 50),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 Image.asset(
-                  'assets/images/banner.home.allintour2025.png',
+                  'assets/images/coldplay banner.png',
                   height: 150,
                   fit: BoxFit.cover,
                 ),
@@ -36,7 +49,8 @@ class HomePage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailPage(day: days[index]),
+                              builder:
+                                  (context) => DetailPage(day: days[index]),
                             ),
                           );
                         },
@@ -64,7 +78,10 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 8),
-                                Text("19 PM", style: TextStyle(color: Colors.grey)),
+                                Text(
+                                  "19 PM",
+                                  style: TextStyle(color: Colors.grey),
+                                ),
                               ],
                             ),
                           ),
