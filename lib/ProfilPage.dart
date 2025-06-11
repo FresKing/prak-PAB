@@ -6,61 +6,79 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Center(
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.blue, width: 3),
-                ),
-                child: const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    'https://jkt48.com/profile/fritzy_rosmerian.jpg',
-                  ),
-                  radius: 70,
+      body: Stack(
+        children: [
+          ClipPath(
+            clipper: CurvedAppBar(),
+            child: Container(
+              height: 200,
+              color: Colors.blue,
+              alignment: Alignment.center,
+              child: Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  _buildInfoCard(
-                    Icons.account_circle,
-                    'Nama',
-                    'Mukhammad Faris',
+          ),
+          // Isi Konten
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 130),
+                Center(
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.blue, width: 4),
+                      color: Colors.white,
+                    ),
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'assets/images/fritzy_rosmerian.jpg',
+                      ),
+                      radius: 70,
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  _buildInfoCard(Icons.phone, 'NBI', '1462200231'),
-                  const SizedBox(height: 10),
-                  _buildInfoCard(Icons.email, 'Email', 'faris@gmail.com'),
-                  const SizedBox(height: 10),
-                  _buildInfoCard(
-                    Icons.location_on,
-                    'Lokasi',
-                    'Surabaya, Indonesia',
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      _buildInfoCard(
+                        Icons.account_circle,
+                        'Nama',
+                        'Mukhammad Faris',
+                      ),
+                      const SizedBox(height: 10),
+                      _buildInfoCard(Icons.phone, 'NBI', '1462200231'),
+                      const SizedBox(height: 10),
+                      _buildInfoCard(Icons.email, 'Email', 'faris@gmail.com'),
+                      const SizedBox(height: 10),
+                      _buildInfoCard(
+                        Icons.location_on,
+                        'Lokasi',
+                        'Surabaya, Indonesia',
+                      ),
+                      const SizedBox(height: 10),
+                      _buildInfoCard(
+                        Icons.alternate_email,
+                        'Instagram',
+                        '@Fresking_',
+                      ),
+                    ],
                   ),
-                  _buildInfoCard(
-                    Icons.alternate_email,
-                    'Instagram',
-                    '@Fresking_',
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -96,4 +114,27 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+// CustomClipper untuk melengkungkan bagian atas
+class CurvedAppBar extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height - 60);
+
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height + 50,
+      size.width,
+      size.height - 60,
+    );
+
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

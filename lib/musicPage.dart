@@ -16,7 +16,7 @@ class MusicVideoScreen extends StatelessWidget {
             crossAxisCount: 1,
             //crossAxisSpacing: 20,
             mainAxisSpacing: 16,
-            childAspectRatio: 1.4,
+            childAspectRatio: 1.2,
           ),
           itemBuilder: (context, index) {
             return Container(
@@ -32,17 +32,29 @@ class MusicVideoScreen extends StatelessWidget {
                 ],
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(
+                  Container(
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 6,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(12),
-                      ),
-                      child: Image.asset(
-                        'assets/images/coldplay banner.png',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                      borderRadius: BorderRadius.circular(16),
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Image.asset(
+                          'assets/images/coldplay banner.png',
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -74,7 +86,6 @@ class MusicVideoScreen extends StatelessWidget {
                       child: const Text("Play"),
                     ),
                   ),
-                  const SizedBox(height: 8),
                 ],
               ),
             );
