@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
-import 'musicPage.dart';
-import 'ProfilPage.dart';
+import 'mainPage/HomePage.dart';
+import 'mainPage/musicPage.dart';
+import 'mainPage/ProfilPage.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});

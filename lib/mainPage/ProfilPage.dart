@@ -1,7 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../register.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late SharedPreferences prefs;
+  String name = '';
+  String nbi = '';
+  String email = '';
+  String alamat = '';
+  String instagram = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? 'Tidak ada data';
+      nbi = prefs.getString('nbi') ?? 'Tidak ada data';
+      email = prefs.getString('email') ?? 'Tidak ada data';
+      alamat = prefs.getString('alamat') ?? 'Tidak ada data';
+      instagram = prefs.getString('instagram') ?? 'Tidak ada data';
+    });
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    await prefs.clear();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const RegisterPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +53,7 @@ class ProfilePage extends StatelessWidget {
               height: 200,
               color: Colors.blue,
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 'Profile',
                 style: TextStyle(
                   fontSize: 26,
@@ -24,7 +63,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          // Isi Konten
           SingleChildScrollView(
             child: Column(
               children: [
@@ -51,27 +89,32 @@ class ProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      _buildInfoCard(
-                        Icons.account_circle,
-                        'Nama',
-                        'Mukhammad Faris',
-                      ),
+                      _buildInfoCard(Icons.account_circle, 'Nama', name),
                       const SizedBox(height: 10),
-                      _buildInfoCard(Icons.phone, 'NBI', '1462200231'),
+                      _buildInfoCard(Icons.phone, 'NBI', nbi),
                       const SizedBox(height: 10),
-                      _buildInfoCard(Icons.email, 'Email', 'faris@gmail.com'),
+                      _buildInfoCard(Icons.email, 'Email', email),
                       const SizedBox(height: 10),
-                      _buildInfoCard(
-                        Icons.location_on,
-                        'Lokasi',
-                        'Surabaya, Indonesia',
-                      ),
+                      _buildInfoCard(Icons.location_on, 'Alamat', alamat),
                       const SizedBox(height: 10),
                       _buildInfoCard(
                         Icons.alternate_email,
                         'Instagram',
-                        '@Fresking_',
+                        instagram,
                       ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () => _logout(context),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 50),
+                          backgroundColor: Colors.red,
+                        ),
+                        child: const Text(
+                          'Keluar',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -87,7 +130,7 @@ class ProfilePage extends StatelessWidget {
     return Card(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(14),
         child: Row(
           children: [
             Icon(icon, color: Colors.blue),
@@ -116,20 +159,17 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-// CustomClipper untuk melengkungkan bagian atas
 class CurvedAppBar extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, size.height - 60);
-
     path.quadraticBezierTo(
       size.width / 2,
       size.height + 50,
       size.width,
       size.height - 60,
     );
-
     path.lineTo(size.width, 0);
     path.close();
     return path;

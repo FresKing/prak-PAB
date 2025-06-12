@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'bottomNavbar.dart';
-import 'authentication/register.dart';
-import 'authentication/login.dart';
+import 'register.dart';
+import 'masukPage.dart';
+import 'splashpage.dart';
 
 void main() {
   runApp(MainApp());
@@ -14,9 +15,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tiket Konser',
-      home: BottomNavbar(),
+      //home: BottomNavbar(),
+      //home: Masukpage(),
       //home: RegisterPage(),
-      //home: LoginPage(), // Uncomment this line to use the RegisterPage
+      home: SplashPage(),
     );
   }
 }
